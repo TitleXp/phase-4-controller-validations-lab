@@ -7,9 +7,14 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    author = Author.create(author_params)
+    author = Author.create!(author_params), status: :created
+    # if author.valid? # or author.id
+    #   render json: author, status: :created
+    # else
+    #   render json: {errors: "Invalid data"}, status: :422 #unprocessable_entity
 
-    render json: author, status: :created
+  # rescue ActiveRecord::RecordInvalid => invalid
+  #   render json: {errors: invalid.record.errors.full_messages}, status: 422
   end
 
   private
